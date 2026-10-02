@@ -1,0 +1,74 @@
+Euromonitor Data Engineer Scraping Test
+=======================================
+
+Overview
+--------
+This repository contains Python scrapers for both exercises.
+
+Exercise 1: Glossier
+- Uses the Shopify product JSON endpoints to get products and product
+  details.
+- Supports India and US locales.
+- The default output has one row per product.
+- The optional --variants flag creates one row per product variant.
+- No browser automation is required.
+
+Exercise 2: Cellarbrations
+- The scraper starts from the specified Whisky category page.
+- The category page contains a window.__PRELOADED_STATE__ object with the
+  product listing data.
+- Product SKUs from the category response are used with the site's
+  storefront API to get complete product details.
+- Pagination is handled using the page and skip parameters.
+- Product descriptions, prices, images and unit information are taken from
+  the product API.
+- measuring_unit and units are extracted from the product's unitsOfSize
+  field.
+- Direct HTTP requests with curl_cffi Chrome impersonation are used instead
+  of browser automation.
+
+Browser-rendering decision
+--------------------------
+I tested the Cellarbrations category and product pages and found that the
+required data can be obtained through direct HTTP requests. The category
+response contains the product listing in its preloaded state, and the
+storefront API provides the remaining product details.
+
+This approach is lighter and faster than launching a browser and avoids
+loading unnecessary page assets. I would consider browser automation if the
+required data became available only after JavaScript execution or could no
+longer be accessed through the initial response/API.
+
+Reliability
+-----------
+- Requests use explicit timeouts.
+- Pagination follows the live category data instead of assuming a fixed
+  number of products.
+- Product details are fetched using the discovered SKU.
+- The scraper stops when there are no more products or the discovered total
+  has been processed.
+- The scraper raises an error if the expected preloaded state is missing.
+
+Assumptions
+-----------
+- The site's product SKU/product number is used as the product ID.
+- unitsOfSize is treated as the source of measurement information.
+- Images are stored as JSON because CSV does not have a native array/object
+  type.
+- scraped_at timestamps are recorded in UTC.
+- Cellarbrations store ID 144981 is used as specified in the task.
+
+AI usage
+--------
+AI (ChatGPT) was used during development to:
+- research the public site structure and identify relevant storefront
+  endpoints;
+- analyze the structure of the Cellarbrations preloaded state;
+- propose the HTTP-based scraping architecture;
+- assist with Python parsing, pagination and CSV output logic;
+- identify edge cases such as pagination, product-detail retrieval and
+  measurement-unit extraction;
+- review and simplify the implementation and documentation.
+
+The implementation was manually tested against the live responses and
+reviewed to ensure the final scraper and output match the requirements.
