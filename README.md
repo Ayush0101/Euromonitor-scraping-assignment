@@ -1,4 +1,4 @@
-# Euromonitor Data Engineer Scraping Test
+# Euromonitor Data Engineer Scraping Assignment
 
 Python scrapers developed for the two websites provided as part of the **Euromonitor Data Engineer Scraping Test**.
 
