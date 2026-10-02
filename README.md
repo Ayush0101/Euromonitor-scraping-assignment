@@ -1,6 +1,6 @@
 # Euromonitor Data Engineer Scraping Assignment
 
-Python scrapers developed for the two websites provided as part of the **Euromonitor Data Engineer Scraping Test**.
+Python scrapers developed for the two websites provided as part of the **Euromonitor Data Engineer Scraping Assignment**.
 
 The project contains scrapers for:
 
