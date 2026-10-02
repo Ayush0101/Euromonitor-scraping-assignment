@@ -87,14 +87,6 @@ Description
 Measuring unit
 Units
 
-For example:
-
-measuring_unit = ml
-units = 700
-How the Cellarbrations Scraper Works
-
-The Cellarbrations category page contains a __PRELOADED_STATE__ object in the initial HTTP response.
-
 The scraper:
 
 Requests the category page.
